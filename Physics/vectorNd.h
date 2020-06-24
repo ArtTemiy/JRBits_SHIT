@@ -1,9 +1,4 @@
-//
-// Created by ArtTemiy on 18.06.2020.
-//
-
-#ifndef TEST_CMAKE_CLION__VECTORND_H
-#define TEST_CMAKE_CLION__VECTORND_H
+#pragma once
 
 #include "double_i.h"
 
@@ -17,20 +12,18 @@ template <class T, size_t N>
 class vectorNd {
     std::array<T, N> coordinates;
 
-
 public:
     vectorNd() : coordinates() {
     }
-
-    vectorNd(std::initializer_list<T> init_list) : coordinates() {
+    vectorNd(const std::array<T, N>& arr) : coordinates(arr) {
+    }
+    vectorNd(std::initializer_list<double_i> init_list) : coordinates() {
         size_t ind = 0;
         for (auto& el : init_list) {
-            coordinates[ind++] = T(el);
+            coordinates[ind++] = el;
         }
     }
 
-    vectorNd(const std::array<T, N>& arr) : coordinates(arr) {
-    }
     // TO DO
     template <class Tv1, class Tv2>
     vectorNd(const Tv1 c1, Tv2 c2) : coordinates() {
@@ -43,7 +36,6 @@ public:
     }
 
     vectorNd(const vectorNd<T, N>& other) = default;
-    // vectorNd(vectorNd<T, N>&& other) = default;
 
     std::string to_string() const {
         std::string result = "";
@@ -79,6 +71,7 @@ public:
         }
         return v_ret;
     }
+
     vectorNd<T, N>& operator+=(const vectorNd<T, N>& other) {
         for (size_t i = 0; i < N; ++i) {
             coordinates[i] += other.coordinates[i];
@@ -147,9 +140,12 @@ public:
         return coordinates[index];
     }
     vectorNd<T, N> Projection(size_t index) const {
-        vectorNd<T, N> v_ret();
-        //v_ret[index] = coordinates[index];
-        return vectorNd<T, N>();
+        vectorNd<T, N> v_ret;
+        v_ret[index] = coordinates[index];
+        return v_ret;
+    }
+    std::array<T, N> Array() const {
+        return coordinates;
     }
     // sf::Vector2f ToV2f() const;
 };
@@ -180,6 +176,3 @@ namespace std {
         return arg.to_wstring();
     }
 }
-
-
-#endif //TEST_CMAKE_CLION__VECTORND_H

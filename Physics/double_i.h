@@ -1,5 +1,4 @@
-#ifndef DOUBLE_I_H
-#define DOUBLE_I_H
+#pragma once
 
 #include <type_traits>
 #include <iostream>
@@ -59,5 +58,3 @@ namespace std {
     string to_string(const double_i& arg);
     wstring to_wstring(const double_i& arg);
 }
-
-#endif  // DOUBLE_I_H
