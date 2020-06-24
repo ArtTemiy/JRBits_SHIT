@@ -1,7 +1,3 @@
-//
-// Created by ArtTemiy on 18.06.2020.
-//
-
 #include "double_i.h"
 
 double double_i::GetValue() const {
@@ -11,12 +7,6 @@ double double_i::GetValue() const {
 bool double_i::IsInf() const {
     return inf_;
 }
-
-//template <class T>
-//double_i& double_i::operator=(const T& other) {
-//    *this = double_i(other);
-//    return *this;
-//}
 
 double double_i::to_double() const {
     if (inf_) {
@@ -56,48 +46,34 @@ double_i double_i::sqrt() const
     return double_i(std::sqrt(x_), false);
 }
 
+double_i& double_i::operator=(const double_i& other) {
+    x_ = other.x_;
+    inf_ = other.inf_;
+    return *this;
+}
+
 double_i double_i::operator-() const {
     return double_i(-x_, inf_);
 }
 
-//template <class T>
-//double_i& double_i::operator+=(const T& other) {
-//    *this += double_i(other);
-//    return *this;
-//}
+double_i& double_i::operator+=(const double_i& other) {
+    if ((inf_ && other.inf_) || (!inf_ && !other.inf_)) {
+        x_ += other.x_;
+        if (x_ == 0) {
+            inf_ = false;
+        }
+    }
+    else if (other.inf_) {
+        x_ = other.x_;
+        inf_ = other.inf_;
+    }
+    return *this;
+}
 
-//template<>
-//double_i& double_i::operator+=(const double_i& other) {
-//    if ((inf_ && other.inf_) || (!inf_ && !other.inf_)) {
-//        x_ += other.x_;
-//        if (x_ == 0) {
-//            inf_ = false;
-//        }
-//    } else if (other.inf_) {
-//        x_ = other.x_;
-//        inf_ = other.inf_;
-//    }
-//    return *this;
-//}
-
-//template <class T>
-//double_i& double_i::operator-=(const T& other) {
-//    *this -= double_i(other);
-//    return *this;
-//}
-
-template <>
 double_i& double_i::operator-=(const double_i& other) {
     return *this += (-other);
 }
 
-//template <class T>
-//double_i& double_i::operator*=(const T& other) {
-//    *this *= double_i(other);
-//    return *this;
-//}
-
-template <>
 double_i& double_i::operator*=(const double_i& other) {
     x_ = x_ * other.x_;
     inf_ = inf_ || other.inf_;
@@ -107,13 +83,6 @@ double_i& double_i::operator*=(const double_i& other) {
     return *this;
 }
 
-//template <class T>
-//double_i& double_i::operator/=(const T& other) {
-//    *this /= double_i(other);
-//    return *this;
-//}
-
-template <>
 double_i& double_i::operator/=(const double_i& other) {
     if (inf_ && other.inf_) {
         inf_ = false;
@@ -139,55 +108,38 @@ double_i& double_i::operator/=(const double_i& other) {
     return *this;
 }
 
-//template <typename T>
-//double_i double_i::operator+(const T& other) const {
-//    double_i x_ = *this;
-//    x_ += other;
-//    return x_;
-//}
+double_i double_i::operator+(const double_i& other) const {
+    double_i x_ = *this;
+    x_ += other;
+    return x_;
+}
 
-//template <typename T>
-//double_i double_i::operator-(const T& other) const {
-//    double_i x_ = *this;
-//    x_ -= other;
-//    return x_;
-//}
+double_i double_i::operator-(const double_i& other) const {
+    double_i x_ = *this;
+    x_ -= other;
+    return x_;
+}
 
-//template <typename T>
-//double_i double_i::operator*(const T& other) const {
-//    double_i x_ = *this;
-//    x_ *= other;
-//    return x_;
-//}
+double_i double_i::operator*(const double_i& other) const {
+    double_i x_ = *this;
+    x_ *= other;
+    return x_;
+}
 
-//template <typename T>
-//double_i double_i::operator/(const T& other) const {
-//    double_i x_ = *this;
-//    x_ /= other;
-//    return x_;
-//}
+double_i double_i::operator/(const double_i& other) const {
+    double_i x_ = *this;
+    x_ /= other;
+    return x_;
+}
 
-//template <class T>
-//bool double_i::operator==(const T& other) const {
-//    return *this == double_i(other);
-//}
-
-//template <>
 bool double_i::operator==(const double_i& other) const {
     return inf_ == other.inf_ && x_ == other.x_;
 }
 
-//template <class T>
-//bool double_i:: operator!=(const T& other) const {
-//    return !(*this == other);
-//}
+bool double_i::operator!=(const double_i& other) const {
+    return !(*this == other);
+}
 
-//template<class T>
-//bool double_i::operator<(const T& other) const {
-//    return *this < double_i(other);
-//}
-
-template <>
 bool double_i::operator<(const double_i& other) const {
     if (inf_ && !other.inf_) {
         return x_ < 0;
@@ -198,20 +150,17 @@ bool double_i::operator<(const double_i& other) const {
     return x_ < other.x_;
 }
 
-//template<class T>
-//bool double_i::operator>(const T& other) const {
-//    return double_i(other) < *this;
-//}
+bool double_i::operator>(const double_i& other) const {
+    return double_i(other) < *this;
+}
 
-//template<class T>
-//bool double_i::operator<=(const T& other) const {
-//    return !(*this > double_i(other));
-//}
+bool double_i::operator<=(const double_i& other) const {
+    return !(*this > double_i(other));
+}
 
-//template<class T>
-//bool double_i::operator>=(const T& other) const {
-//    return !(*this < double_i(other));
-//}
+bool double_i::operator>=(const double_i& other) const {
+    return !(*this < double_i(other));
+}
 
 std::ostream& operator<<(std::ostream& os, const double_i& n) {
     os << n.GetValue();
@@ -225,16 +174,14 @@ namespace std {
     double_i sqrt(const double_i& arg) {
         return double_i(std::sqrt(arg.GetValue()), arg.IsInf());
     }
+
     string to_string(const double_i& arg)
     {
         return arg.to_string();
     }
+
     wstring to_wstring(const double_i& arg)
     {
         return arg.to_wstring();
     }
-}
-
-void f() {
-    std::cout << 57 << std::endl;
 }
