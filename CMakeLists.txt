@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(SFMLTest_project)
+project(JRBits)
 
 set(CMAKE_CXX_STANDARD 17)
 cmake_minimum_required(VERSION 3.0)
@@ -33,14 +33,11 @@ set(all_libs
 
 # Main executables
 add_executable(Game main.cpp)
-target_link_libraries(Game ${physics_libs})
-target_link_libraries(Game utils_lib)
-target_link_libraries(Game drawable_lib)
-target_link_libraries(Game ${SFML_lib})
+target_link_libraries(Game ${all_libs})
 
 # Help executable
 add_executable(main_for_test cpp_for_testing.cpp)
-target_link_libraries(main_for_test utils_lib)
+target_link_libraries(main_for_test ${all_libs})
 
 # TESTS
 add_executable(memory_leaks_test "Tests/memory_leaks.cpp")

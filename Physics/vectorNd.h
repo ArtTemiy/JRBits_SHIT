@@ -122,7 +122,7 @@ public:
     bool operator==(const vectorNd<T, N>& other) const {
         return coordinates == other.coordinates;
     }
-    bool operator!=(const vectorNd<T, N>& otsher) const {
+    bool operator!=(const vectorNd<T, N>& other) const {
         return !(*this == other);
     }
 
