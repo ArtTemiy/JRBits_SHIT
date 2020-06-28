@@ -1,0 +1,3 @@
+background_800x600 background_800x600.jpg
+sprite_80x80 sprite_80x80.png
+big_texture_1000x1000 big_texture_1000x1000.png

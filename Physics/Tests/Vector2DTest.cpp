@@ -52,3 +52,9 @@ TEST_CASE("Functional methods and other operators") {
 	REQUIRE(v.Projection(0) == vector2d{ 3, 0 });
 	REQUIRE(v.Projection(1) == vector2d{ 0, 4 });
 }
+
+TEST_CASE("Special vectors") {
+	REQUIRE(V2dOnes() == vector2d{ 1, 1 });
+	REQUIRE(V2dE(0) == vector2d{ 1, 0 });
+	REQUIRE(V2dE(1) == vector2d{ 0, 1 });
+}

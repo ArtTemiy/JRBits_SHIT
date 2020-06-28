@@ -1,4 +1,6 @@
 add_executable(double_i_test DoubleITest.cpp )
 add_executable(vector_nd_test Vector2DTest.cpp)
-target_link_libraries(double_i_test doubleI)
-target_link_libraries(vector_nd_test doubleI vectorNd)
+add_executable(object_test ObjectTest.cpp)
+target_link_libraries(double_i_test double_i_lib)
+target_link_libraries(vector_nd_test vectorNd_lib)
+target_link_libraries(object_test object_lib)

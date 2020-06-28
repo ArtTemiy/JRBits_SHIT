@@ -1,7 +1,7 @@
-#include "Physics/physics.h"
-#include "drawable.h"
-#include "Utils/utils.h"
-#include "Utils/logger.hpp"
+#include "../Physics/physics.h"
+#include "../drawable.h"
+#include "../Utils/utils.h"
+#include "../Utils/logger.hpp"
 Logger mlog;
 
 bool Logger::CONFIG_READ = false;
@@ -38,8 +38,7 @@ int main() {
     world.SetDefaulrForce(V2dE(1) * G);
 
     // create objects
-    auto id1 = world.AddObject(new Sprite(DynObject({ 80, 80 }, { 100, 200 }), all_sprites["sprite_80x80"])).AddSpeed({ 50, -200 }).id;
-    
+
     sf::Clock clock;
     while (window.isOpen()) {
         clock.restart();
@@ -48,10 +47,14 @@ int main() {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
-            } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+            }
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
                 window.close();
             }
         }
+
+        world.AddObject(new Sprite(DynObject({ 80, 80 }, { 10 + rand() % (800 - 10 - 10 - 80), 20 }), all_sprites["sprite_80x80"]));
+
         // ------ ITERATION ------
         world.Tick(kSecondsPerFrame);
 

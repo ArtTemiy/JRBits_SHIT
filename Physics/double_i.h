@@ -51,6 +51,23 @@ public:
     bool operator>=(const double_i& other) const;
 };
 
+template <class T, typename = std::enable_if_t<std::is_arithmetic_v<T>>>
+double_i operator+(const T& scalar, const double_i& di) {
+    return double_i(scalar) + di;
+}
+template <class T, typename = std::enable_if_t<std::is_arithmetic_v<T>>>
+double_i operator-(const T& scalar, const double_i& di) {
+    return double_i(scalar) - di;
+}
+template <class T, typename = std::enable_if_t<std::is_arithmetic_v<T>>>
+double_i operator*(const T& scalar, const double_i& di) {
+    return double_i(scalar) * di;
+}
+template <class T, typename = std::enable_if_t<std::is_arithmetic_v<T>>>
+double_i operator/(const T& scalar, const double_i& di) {
+    return double_i(scalar) / di;
+}
+
 std::ostream& operator<<(std::ostream& os, const double_i& n);
 
 namespace std {

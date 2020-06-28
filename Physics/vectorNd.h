@@ -1,12 +1,12 @@
 #pragma once
 
-#include "double_i.h"
-
 #include <array>
 #include <initializer_list>
 #include <functional>
 #include <vector>
 #include <iostream>
+
+#include "double_i.h"
 
 template <class T, size_t N>
 class vectorNd {
@@ -107,13 +107,13 @@ public:
         return *this + (-other);
     }
     template <class Tlike>
-    vectorNd<T, N> operator*(const Tlike& scalar) {
+    vectorNd<T, N> operator*(const Tlike& scalar) const  {
         auto v_ret(*this);
         v_ret *= scalar;
         return v_ret;
     }
     template <class Tlike>
-    vectorNd<T, N> operator/(const Tlike& scalar) {
+    vectorNd<T, N> operator/(const Tlike& scalar) const  {
         auto v_ret(*this);
         v_ret /= scalar;
         return v_ret;
@@ -122,7 +122,7 @@ public:
     bool operator==(const vectorNd<T, N>& other) const {
         return coordinates == other.coordinates;
     }
-    bool operator!=(const vectorNd<T, N>& other) const {
+    bool operator!=(const vectorNd<T, N>& otsher) const {
         return !(*this == other);
     }
 
@@ -149,7 +149,6 @@ public:
     }
     // sf::Vector2f ToV2f() const;
 };
-typedef vectorNd<double_i, 2> vector2d;
 
 template <class T, size_t N>
 std::ostream& operator<<(std::ostream& os, const vectorNd<T, N>& v){
@@ -176,3 +175,23 @@ namespace std {
         return arg.to_wstring();
     }
 }
+
+template<class T, size_t N>
+vectorNd<T, N> VNdOnes() {     // vector of ones
+    vectorNd<T, N> v_ret;
+    for (auto i = 0; i < N; ++i) {
+        v_ret[i] = 1;
+    }
+    return v_ret;
+}
+template<class T, size_t N>
+vectorNd<T, N> VNdE(size_t i) {  // basic vector (1 on i-th place)
+    vectorNd<T, N> v_ret;
+    v_ret[i] = 1;
+    return v_ret;
+}
+
+typedef vectorNd<double_i, 2> vector2d;
+
+vector2d V2dOnes();
+vector2d V2dE(size_t i);
