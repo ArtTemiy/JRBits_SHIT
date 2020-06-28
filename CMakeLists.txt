@@ -32,11 +32,11 @@ set(all_libs
     utils_lib)
 
 # Main executables
-add_executable(Game main.cpp)
+add_executable(Game "JRBits.cpp")
 target_link_libraries(Game ${all_libs})
 
 # Help executable
-add_executable(main_for_test cpp_for_testing.cpp)
+add_executable(main_for_test "Tests/cpp_for_testing.cpp")
 target_link_libraries(main_for_test ${all_libs})
 
 # TESTS
